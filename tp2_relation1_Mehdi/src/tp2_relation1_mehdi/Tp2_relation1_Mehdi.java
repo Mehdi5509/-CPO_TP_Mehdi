@@ -12,7 +12,6 @@ public class Tp2_relation1_Mehdi {
      */
    
 
-    public class TP2_relations_1 {
 
         public static void main(String[] args) {
 
@@ -22,7 +21,7 @@ public class Tp2_relation1_Mehdi {
             Voiture uneMicra = new Voiture("Micra", "Nissan", 4);
 
             Personne bob = new Personne("Mehdi", "ami");
-            Personne reno = new Personne("Maxence", "Fleurisson coquibus");
+            Personne reno = new Personne("alex", "niggers");
 
             System.out.println("Liste des voitures disponibles :");
             System.out.println(uneClio + "\n" + uneAutreClio + "\n" + une2008 + "\n" + uneMicra);
@@ -49,4 +48,4 @@ public class Tp2_relation1_Mehdi {
             }
         }
     }
-}
+

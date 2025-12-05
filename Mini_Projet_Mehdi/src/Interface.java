@@ -75,6 +75,11 @@ public class Interface extends javax.swing.JFrame {
 
                 up_chiffre_3.setText("/\\");
                     up_chiffre_3.setAlignmentY(0.0F);
+                    up_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            up_chiffre_3ActionPerformed(evt);
+                        }
+                    });
                     getContentPane().add(up_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 50, -1, -1));
 
                     up_chiffre_4.setText("/\\");
@@ -170,6 +175,10 @@ public class Interface extends javax.swing.JFrame {
     private void bouton_testerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_testerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bouton_testerActionPerformed
+
+    private void up_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_up_chiffre_3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -68,6 +68,9 @@
         <Property name="text" type="java.lang.String" value="/\u005c" containsInvalidXMLChars="true"/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="up_chiffre_3ActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="284" y="50" width="-1" height="-1"/>

@@ -1,5 +1,5 @@
 
-import java.util.Random;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,75 +10,74 @@ import java.util.Random;
  *
  * @author Ammi
  */
-public class CadenasGame {
+
+import java.util.Random;
 import java.util.Random;
 import java.util.Arrays; 
+import java.util.Random;
+import java.util.Random;
 
-public class CadenasJeu {
+public class CadenasGame {
     
-    // Constantes et Attributs
     private static final int NB_CHIFFRES = 4;
-    private final int NB_MAX_TENTATIVES;
-    private final int[] CODE_SECRET;
+    private final int NB_MAX_TENTATIVES; 
+    
+    // N'est pas final pour pouvoir être réinitialisé dans recommencer()
+    int[] CODE_SECRET; 
     
     private int tentativesRestantes;
     private int tentativesEffectuees; 
     private int[] codeActuel; 
 
+    // ================== Constructeur ==================
 
-
-    public CadenasJeu() {
+    public CadenasGame() {
         this.NB_MAX_TENTATIVES = 5;
         this.codeActuel = new int[NB_CHIFFRES]; 
         this.tentativesRestantes = NB_MAX_TENTATIVES;
         this.tentativesEffectuees = 0;
-        this.CODE_SECRET = genererCodeSecret();
+        this.CODE_SECRET = genererCodeSecret(); 
     }
+    
+    // ================== Logique Principale du Jeu ==================
 
-   
     private int[] genererCodeSecret() {
         Random rand = new Random();
         int[] code = new int[NB_CHIFFRES];
         for (int i = 0; i < NB_CHIFFRES; i++) {
             code[i] = rand.nextInt(10); 
         }
-      
         return code;
     }
-
-   
-    public Propositions testerProposition() {
+    
+    public Propositions testerPropositions() {
         if (estPartieTerminee()) {
-            return null;
+            return new Propositions(0, 0, 0);
         }
         
         int exacts = 0;
         int tropHauts = 0;
         int tropBas = 0;
 
-     
         for (int i = 0; i < NB_CHIFFRES; i++) {
             if (codeActuel[i] == CODE_SECRET[i]) {
-                exacts++;
+                exacts++; 
             } else if (codeActuel[i] > CODE_SECRET[i]) {
-                tropHauts++;
-            } else {
+                tropHauts++; 
+            } else { 
                 tropBas++;
             }
         }
         
-       
         tentativesRestantes--;
         tentativesEffectuees++;
 
-        // 3. Retourne les résultats
-        return new Resultat(exacts, tropHauts, tropBas);
+        return new Propositions(exacts, tropHauts, tropBas);
     }
     
-   
     public void changerChiffre(int position, boolean monter) {
         if (position < 0 || position >= NB_CHIFFRES) {
-            return; // Sécurité
+            return; 
         }
         
         int chiffre = codeActuel[position];
@@ -91,42 +90,35 @@ public class CadenasJeu {
         
         codeActuel[position] = chiffre;
     }
-
- 
-
-    public int getTentativesRestantes() {
-        return tentativesRestantes;
-    }
-
-    public int getTentativesEffectuees() {
-        return tentativesEffectuees;
-    }
     
-    public int getMaxTentatives() {
-        return NB_MAX_TENTATIVES;
-    }
+    // ================== Accesseurs et Statut du Jeu ==================
 
     public int[] getCodeActuel() {
         return codeActuel;
     }
     
-   
-    public String getScore() {
-        return tentativesEffectuees + " sur " + NB_MAX_TENTATIVES;
+    public int[] getCodeSecret() {
+        return CODE_SECRET;
+    }
+    
+    public int getTentativesEffectuees() {
+        return tentativesEffectuees;
     }
 
+    public String getScore() { 
+        return tentativesEffectuees + " sur " + NB_MAX_TENTATIVES; 
+    }
 
     public boolean estPartieTerminee() {
         return tentativesRestantes <= 0;
     }
-
     
     public void recommencer() {
-     
         this.codeActuel = new int[NB_CHIFFRES];
         this.tentativesRestantes = NB_MAX_TENTATIVES;
         this.tentativesEffectuees = 0;
-        this.CODE_SECRET = genererCodeSecret();
+        this.CODE_SECRET = genererCodeSecret(); 
     }
-}
+
+    
 }

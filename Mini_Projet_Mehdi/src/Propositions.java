@@ -8,28 +8,25 @@
  * @author Ammi
  */
 public class Propositions {
+    
+    // Attributs publics pour un accès facile depuis l'interface
+    public int nombreChiffresExacts;
+    public int nombreChiffresTropHauts;
+    public int nombreChiffresTropBas;
+    
     /**
- * Classe utilitaire pour stocker et transmettre les résultats d'un essai (une proposition).
- */
-public class Proposition {
-    
-    
-    public int nombreChiffresExacts;    
-    public int nombreChiffresTropHauts; 
-    public int nombreChiffresTropBas;     
-
-  
-    public Proposition(int exacts, int hauts, int bas) {
+     * Constructeur pour stocker les résultats d'un essai.
+     */
+    public Propositions(int exacts, int hauts, int bas) {
         this.nombreChiffresExacts = exacts;
         this.nombreChiffresTropHauts = hauts;
         this.nombreChiffresTropBas = bas;
     }
 
-   
+    /**
+     * Vérifie si le joueur a gagné.
+     */
     public boolean estGagne() {
-        return nombreChiffresExacts == 4; // Car le code a 4 chiffres.
+        return nombreChiffresExacts == 4;
     }
-
-
-}
 }

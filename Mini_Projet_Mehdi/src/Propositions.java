@@ -7,26 +7,25 @@
  *
  * @author Ammi
  */
+// Dans Proposition.java
+
 public class Propositions {
     
-    // Attributs publics pour un accès facile depuis l'interface
-    public int nombreChiffresExacts;
-    public int nombreChiffresTropHauts;
-    public int nombreChiffresTropBas;
+    public final int nombreChiffresExacts;
+    public final int nombreChiffresTropHauts;
+    public final int nombreChiffresTropBas;
     
-    /**
-     * Constructeur pour stocker les résultats d'un essai.
-     */
-    public Propositions(int exacts, int hauts, int bas) {
+    private final int tailleCode; 
+
+    public Propositions(int exacts, int hauts, int bas, int tailleCode) {
         this.nombreChiffresExacts = exacts;
         this.nombreChiffresTropHauts = hauts;
         this.nombreChiffresTropBas = bas;
+        this.tailleCode = tailleCode;
     }
 
-    /**
-     * Vérifie si le joueur a gagné.
-     */
     public boolean estGagne() {
-        return nombreChiffresExacts == 4;
+        // Condition de victoire adaptée à la taille du code secret
+        return nombreChiffresExacts == tailleCode;
     }
 }

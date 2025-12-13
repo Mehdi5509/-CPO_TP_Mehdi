@@ -7,29 +7,29 @@
  *
  * @author Ammi
  */
-public class Propositions {
-    /**
+/**
  * Classe utilitaire pour stocker et transmettre les résultats d'un essai (une proposition).
+ * Le nom de la classe est 'Propositions' pour correspondre à l'appel dans 'Interface.java'.
  */
-public class Proposition {
-    
-    
-    public int nombreChiffresExacts;    
-    public int nombreChiffresTropHauts; 
-    public int nombreChiffresTropBas;     
+public class Propositions {
 
-  
-    public Proposition(int exacts, int hauts, int bas) {
+    public final int nombreChiffresExacts;
+    public final int nombreChiffresTropHauts;
+    public final int nombreChiffresTropBas;
+    private final int nbChiffresPartie; // Nouveau: pour la vérification estGagne()
+
+    public Propositions(int exacts, int hauts, int bas, int nbChiffresPartie) {
         this.nombreChiffresExacts = exacts;
         this.nombreChiffresTropHauts = hauts;
         this.nombreChiffresTropBas = bas;
+        this.nbChiffresPartie = nbChiffresPartie; // Stocke la taille de la combinaison
     }
 
-   
+    /**
+     * Vérifie si la proposition est gagnante.
+     * @return true si tous les chiffres exacts sont égaux à la taille de la combinaison.
+     */
     public boolean estGagne() {
-        return nombreChiffresExacts == 4; // Car le code a 4 chiffres.
+        return nombreChiffresExacts == nbChiffresPartie; // Condition de victoire dynamique
     }
-
-
-}
-}
+}   

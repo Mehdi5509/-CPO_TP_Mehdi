@@ -1,63 +1,67 @@
 
+
+
+
+
+
 import java.util.Random;
+import java.util.Arrays;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Ammi
- */
 public class CadenasGame {
-import java.util.Random;
-import java.util.Arrays; 
-
-public class CadenasJeu {
     
-    // Constantes et Attributs
-    private static final int NB_CHIFFRES = 4;
-    private final int NB_MAX_TENTATIVES;
-    private final int[] CODE_SECRET;
+    private int nbChiffres; // Variable selon la difficulté
+    private int nbMaxTentatives; // Variable selon la difficulté
+    
+    int[] CODE_SECRET;
     
     private int tentativesRestantes;
-    private int tentativesEffectuees; 
-    private int[] codeActuel; 
+    private int tentativesEffectuees;
+    private int[] codeActuel;
 
+    // ================== Constructeur V2 ==================
 
-
-    public CadenasJeu() {
-        this.NB_MAX_TENTATIVES = 5;
-        this.codeActuel = new int[NB_CHIFFRES]; 
-        this.tentativesRestantes = NB_MAX_TENTATIVES;
+    // Constructeur principal, utilisé par l'Interface via l'EcranAccueil
+    public CadenasGame(Difficulte niveau) {
+        this.nbChiffres = niveau.nbChiffres;
+        this.nbMaxTentatives = niveau.nbMaxTentatives;
+        initialiserJeu();
+    }
+    
+    // Ancien constructeur pour la compatibilité (lance une partie NORMAL par défaut)
+    public CadenasGame() {
+        this(Difficulte.NORMAL);
+    }
+    
+    // Nouvelle méthode pour gérer l'initialisation et le recommencement
+    private void initialiserJeu() {
+        this.codeActuel = new int[this.nbChiffres];
+        this.tentativesRestantes = this.nbMaxTentatives;
         this.tentativesEffectuees = 0;
         this.CODE_SECRET = genererCodeSecret();
     }
+    
+    // ================== Logique Principale du Jeu ==================
 
-   
     private int[] genererCodeSecret() {
         Random rand = new Random();
-        int[] code = new int[NB_CHIFFRES];
-        for (int i = 0; i < NB_CHIFFRES; i++) {
-            code[i] = rand.nextInt(10); 
+        int[] code = new int[this.nbChiffres];
+        for (int i = 0; i < this.nbChiffres; i++) {
+            code[i] = rand.nextInt(10);
         }
-      
         return code;
     }
-
-   
-    public Propositions testerProposition() {
+    
+    public Propositions testerPropositions() {
         if (estPartieTerminee()) {
-            return null;
+            // Le constructeur de Propositions prend maintenant la taille du code
+            return new Propositions(0, 0, 0, this.nbChiffres); 
         }
         
         int exacts = 0;
         int tropHauts = 0;
         int tropBas = 0;
 
-     
-        for (int i = 0; i < NB_CHIFFRES; i++) {
+        for (int i = 0; i < this.nbChiffres; i++) {
             if (codeActuel[i] == CODE_SECRET[i]) {
                 exacts++;
             } else if (codeActuel[i] > CODE_SECRET[i]) {
@@ -67,66 +71,64 @@ public class CadenasJeu {
             }
         }
         
-       
         tentativesRestantes--;
         tentativesEffectuees++;
 
-        // 3. Retourne les résultats
-        return new Resultat(exacts, tropHauts, tropBas);
+        return new Propositions(exacts, tropHauts, tropBas, this.nbChiffres);
     }
     
-   
     public void changerChiffre(int position, boolean monter) {
-        if (position < 0 || position >= NB_CHIFFRES) {
-            return; // Sécurité
+        if (position < 0 || position >= this.nbChiffres) {
+            return;
         }
         
         int chiffre = codeActuel[position];
         
         if (monter) {
-            chiffre = (chiffre + 1) % 10; 
+            chiffre = (chiffre + 1) % 10;
         } else {
             chiffre = (chiffre - 1 + 10) % 10;
         }
         
         codeActuel[position] = chiffre;
     }
-
- 
-
-    public int getTentativesRestantes() {
-        return tentativesRestantes;
-    }
-
-    public int getTentativesEffectuees() {
-        return tentativesEffectuees;
-    }
     
-    public int getMaxTentatives() {
-        return NB_MAX_TENTATIVES;
-    }
+    // ================== Accesseurs et Statut du Jeu ==================
 
     public int[] getCodeActuel() {
         return codeActuel;
     }
     
-   
-    public String getScore() {
-        return tentativesEffectuees + " sur " + NB_MAX_TENTATIVES;
+    public int[] getCodeSecret() {
+        return CODE_SECRET;
+    }
+    
+    public int getTentativesEffectuees() {
+        return tentativesEffectuees;
     }
 
+    public int getNbChiffres() {
+        return nbChiffres;
+    }
+    
+    public int getNbMaxTentatives() {
+        return nbMaxTentatives;
+    }
+    
+    public String getScore() {
+        return tentativesEffectuees + " sur " + this.nbMaxTentatives;
+    }
 
     public boolean estPartieTerminee() {
-        return tentativesRestantes <= 0;
+        // La partie est terminée soit si on a trouvé le code, soit si on n'a plus de tentatives
+        boolean estGagne = false;
+        if (codeActuel.length == CODE_SECRET.length) {
+            estGagne = Arrays.equals(codeActuel, CODE_SECRET);
+        }
+        return estGagne || tentativesRestantes <= 0; 
     }
-
     
     public void recommencer() {
-     
-        this.codeActuel = new int[NB_CHIFFRES];
-        this.tentativesRestantes = NB_MAX_TENTATIVES;
-        this.tentativesEffectuees = 0;
-        this.CODE_SECRET = genererCodeSecret();
+        initialiserJeu(); 
     }
-}
 }

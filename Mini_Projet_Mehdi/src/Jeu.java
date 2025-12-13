@@ -15,9 +15,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public class EcranAccueil extends javax.swing.JFrame {
-    private static final Logger logger = Logger.getLogger(EcranAccueil.class.getName());
-    public EcranAccueil() {
+public class Jeu extends javax.swing.JFrame {
+    private static final Logger logger = Logger.getLogger(Jeu.class.getName());
+    public Jeu() {
         initComponents();
         
         // Initialiser la sélection par défaut
@@ -173,7 +173,7 @@ public static void main(String args[]) {
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Erreur lors de la configuration du Look and Feel", ex);
         }
-        java.awt.EventQueue.invokeLater(() -> new EcranAccueil().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Jeu().setVisible(true));
     }
 
 
